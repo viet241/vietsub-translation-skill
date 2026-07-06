@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+*.vi.json
+*_batches/
+context.md
+.DS_Store
