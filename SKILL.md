@@ -46,12 +46,16 @@ Templates: `templates/context.template.md`, `templates/glossary.template.md`
 
 ## Install
 
+Before the first script run (or on `ModuleNotFoundError`), install deps — agent does this, not the user:
+
 ```bash
-python3 -m pip install -r requirements.txt   # macOS/Linux
-py -m pip install -r requirements.txt        # Windows
+python3 -m pip install -r <skill-root>/requirements.txt   # macOS/Linux
+py -m pip install -r <skill-root>/requirements.txt        # Windows
 ```
 
 Skill root: `~/.cursor/skills/vietsub` (macOS/Linux) or `%USERPROFILE%\.cursor\skills\vietsub` (Windows).
+
+Do **not** `pip install` MT libraries mid-job.
 
 ---
 

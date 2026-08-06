@@ -2,8 +2,6 @@
 
 Cursor Agent Skill dịch phụ đề **SRT** và **ASS/SSA** sang **tiếng Việt**. Agent (LLM) là người dịch — không dùng Google Translate hay dịch máy.
 
-> **Lưu ý:** Xưng hô đôi khi không suy ra chính xác chỉ từ phụ đề gốc (nguồn tiếng Anh/Nhật… thường không ghi rõ quan hệ) — bản dịch vẫn có thể còn sai sót; nên research thêm và soát tay các cảnh quan trọng.
-
 Hỗ trợ macOS, Linux, Windows · Python 3.10+ · Định dạng SRT / ASS / SSA
 
 ---
@@ -62,6 +60,14 @@ Có thể dịch thử một đoạn phim trước, hoặc tiếp tục job bị
 
 ---
 
+## Chống chỉ định
+
+Ngôi thứ và **xưng hô không thể chính xác hoàn toàn**. Phụ đề gốc (đặc biệt tiếng Anh/Nhật…) thường không ghi rõ ai đang nói với ai, cũng không ghi quan hệ nhân vật — agent chỉ suy luận từ ngữ cảnh và `context.md`, nên đôi khi nhầm người nói / người nghe hoặc chọn đại từ sai.
+
+Skill giảm lỗi (brief, audit, spot-check) nhưng **không thay** việc research phim và soát tay các cảnh quan trọng trước khi phát hành bản dịch.
+
+---
+
 ## Dùng trong agent
 
 1. Gắn hoặc mở file phụ đề (`.srt`, `.ass`, `.ssa`).
@@ -76,49 +82,13 @@ Skill **không tự bật** — gọi khi cần dịch phụ đề. Dùng đư�
 
 Repo: [github.com/viet241/vietsub-translation-skill](https://github.com/viet241/vietsub-translation-skill)
 
-**Yêu cầu:** Node.js (`npx`), Python 3.10+, `pip`.
-
-### Khuyến nghị — `npx skills`
-
-Cài skill vào agent (Cursor / Claude Code / …):
+**Yêu cầu:** Node.js (`npx`), Python 3.10+.
 
 ```bash
 npx skills add viet241/vietsub-translation-skill -g
 ```
 
-Chỉ Cursor:
-
-```bash
-npx skills add viet241/vietsub-translation-skill -g -a cursor
-```
-
-Rồi cài dependency Python (một lần):
-
-```bash
-pip install -r ~/.cursor/skills/vietsub/requirements.txt
-```
-
-Gỡ:
-
-```bash
-npx skills remove vietsub -g
-```
-
-> `npx add-skill` đã deprecated — dùng `npx skills add`.
-
-### Thay thế — script (cài skill + pip luôn)
-
-**macOS / Linux:**
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/viet241/vietsub-translation-skill/main/install.sh | bash
-```
-
-**Windows (PowerShell):**
-
-```powershell
-irm https://raw.githubusercontent.com/viet241/vietsub-translation-skill/main/install.ps1 | iex
-```
+Chỉ Cursor: thêm `-a cursor`. Dependency Python do agent tự cài khi chạy skill lần đầu.
 
 | Tool | Thư mục cài |
 |------|-------------|
@@ -129,16 +99,13 @@ irm https://raw.githubusercontent.com/viet241/vietsub-translation-skill/main/ins
 
 Gọi trong chat: `/vietsub` (Cursor, Claude Code).
 
-### Gỡ cài đặt (script)
-
-Gỡ **tất cả** bản cài skill vietsub trên máy:
+### Gỡ
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/viet241/vietsub-translation-skill/main/uninstall.sh | bash -s -- --yes
+npx skills remove vietsub -g
 ```
 
-**Lưu ý:** Script / `skills remove` chỉ xóa thư mục skill. **Không** gỡ package Python đã `pip install`.
-**Không** xóa folder job dịch (`movie_batches/`, file `.vi.srt`) — xóa tay nếu không cần.
+**Lưu ý:** Chỉ xóa thư mục skill. **Không** gỡ package Python. **Không** xóa folder job dịch (`movie_batches/`, file `.vi.srt`) — xóa tay nếu không cần.
 
 ---
 
