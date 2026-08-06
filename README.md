@@ -76,9 +76,37 @@ Skill **không tự bật** — gọi khi cần dịch phụ đề. Dùng đư�
 
 Repo: [github.com/viet241/vietsub-translation-skill](https://github.com/viet241/vietsub-translation-skill)
 
-**Yêu cầu:** `git`, Python 3.10+, `pip`.
+**Yêu cầu:** Node.js (`npx`), Python 3.10+, `pip`.
 
-### Một lệnh
+### Khuyến nghị — `npx skills`
+
+Cài skill vào agent (Cursor / Claude Code / …):
+
+```bash
+npx skills add viet241/vietsub-translation-skill -g
+```
+
+Chỉ Cursor:
+
+```bash
+npx skills add viet241/vietsub-translation-skill -g -a cursor
+```
+
+Rồi cài dependency Python (một lần):
+
+```bash
+pip install -r ~/.cursor/skills/vietsub/requirements.txt
+```
+
+Gỡ:
+
+```bash
+npx skills remove vietsub -g
+```
+
+> `npx add-skill` đã deprecated — dùng `npx skills add`.
+
+### Thay thế — script (cài skill + pip luôn)
 
 **macOS / Linux:**
 
@@ -101,7 +129,7 @@ irm https://raw.githubusercontent.com/viet241/vietsub-translation-skill/main/ins
 
 Gọi trong chat: `/vietsub` (Cursor, Claude Code).
 
-### Gỡ cài đặt
+### Gỡ cài đặt (script)
 
 Gỡ **tất cả** bản cài skill vietsub trên máy:
 
@@ -109,7 +137,7 @@ Gỡ **tất cả** bản cài skill vietsub trên máy:
 curl -fsSL https://raw.githubusercontent.com/viet241/vietsub-translation-skill/main/uninstall.sh | bash -s -- --yes
 ```
 
-**Lưu ý:** Script chỉ xóa thư mục skill (`~/.cursor/skills/vietsub`, …). **Không** gỡ package Python đã `pip install`.
+**Lưu ý:** Script / `skills remove` chỉ xóa thư mục skill. **Không** gỡ package Python đã `pip install`.
 **Không** xóa folder job dịch (`movie_batches/`, file `.vi.srt`) — xóa tay nếu không cần.
 
 ---

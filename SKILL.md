@@ -156,11 +156,13 @@ Partial jobs (`--range`): merge updates only translated cue ids; rest stays sour
 | **Khác** (sounds, signs, VO) | Dịch ý — clear, concise |
 | **Rap/song** | Rhythm per `context.md` |
 
-≤42 chars/line, max 2 lines. **Never default `you` → "bạn"** when relationship is known — use `context.md` xưng hô tables; phase overrides baseline.
+**Meaning first (hard rule):** Always translate the **full** meaning of each cue — names, numbers, objects, conditions, attitude. Never drop, abbreviate, or mid-cut a sentence to look shorter. Natural `\N` line breaks are fine; length is **not** a limit and is **not** validated.
+
+**Never default `you` → "bạn"** when relationship is known — use `context.md` xưng hô tables; phase overrides baseline.
 
 **Xưng hô disclaimer:** source subs often omit explicit relationships (especially English). Inference + audit reduce errors but cannot guarantee correctness — research and spot-check pivotal scenes.
 
-**Corruption:** never regex-replace `[sound cues]`; use exact dict lookup; `re.escape()` for glossary regex.
+**Corruption:** never regex-replace `[sound cues]`; use exact dict lookup; `re.escape()` for glossary regex. Fix garbled/duplicated text by re-translating from source JSON — never by stripping meaning.
 
 ---
 

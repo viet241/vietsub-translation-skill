@@ -208,17 +208,7 @@ def audit_corruption(
         batch_num = batch_number_from_name(vi_path.name)
         if through_batch is not None and batch_num is not None and batch_num > through_batch:
             continue
-        batch_num = vi_path.stem.replace("batch_", "").replace(".vi", "")
-        src_path = batches_dir / f"batch_{batch_num}.json"
         vi_data = json.loads(vi_path.read_text(encoding="utf-8"))
-        src_data = (
-            json.loads(src_path.read_text(encoding="utf-8"))
-            if src_path.is_file()
-            else None
-        )
-        src_by_id = (
-            {c["id"]: c["text"] for c in src_data.get("cues", [])} if src_data else {}
-        )
 
         for cue in vi_data.get("cues", []):
             text = cue.get("text", "")
@@ -232,16 +222,6 @@ def audit_corruption(
                         )
                     )
                     break
-
-            src_text = src_by_id.get(cue_id, "")
-            if src_text and len(text) > max(len(src_text) * 3, len(src_text) + 80):
-                issues.append(
-                    (
-                        f"Cue {cue_id} in {vi_path.name}: Output much longer than source "
-                        f"({len(text)} vs {len(src_text)} chars) — possible corruption",
-                        "warning",
-                    )
-                )
 
     return issues
 
